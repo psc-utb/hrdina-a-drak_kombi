@@ -5,19 +5,16 @@ using System.Text;
 
 namespace hrdina_a_drak
 {
-    public class Vlk
+    public class Vlk : Postava
     {
-        public int Zdravi
+        public Vlk(string jmeno, double zdravi, double zdraviMax, double poskozeniMax, double zbrojMax)
+               : base(jmeno, zdravi, zdraviMax, poskozeniMax, zbrojMax)
         {
-            get => default;
-            set
-            {
-            }
         }
 
-        public int Raf()
+        public override bool TestVyberuSpecifickehoOponenta(Postava oponent)
         {
-            throw new System.NotImplementedException();
+            return oponent is not Vlk;
         }
     }
 }

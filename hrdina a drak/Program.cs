@@ -7,10 +7,13 @@ namespace hrdina_a_drak
         static void Main(string[] args)
         {
             //Kostka kostka = ;
-            Hrdina hrdina = new Hrdina("Geralt", 100, 100, 10, 0);
-            Drak drak = new Drak("Alduin", 100, 100, 11, 0);
+            Mec Mec = new Mec(10);
+            Hrdina hrdina = new Hrdina("Geralt", 100, 100, 5, 0, Mec);
+            Drak drak = new Drak("Alduin", 100, 100, 10, 0);
+            //Vlk vlk = new Vlk("Wolfie", 100, 100, 5, 5);
+            Postava[] postavy = new Postava[] { hrdina, drak/*, vlk*/ };
 
-            Arena arena = new Arena(hrdina, drak);
+            Arena arena = new Arena(postavy);
             string prubehBoje = arena.Boj();
 
             Console.WriteLine(prubehBoje);

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace hrdina_a_drak
 {
-    public class Kostka
+    public class Kostka : Random
     {
-
-        private Random random;
 
         private static Kostka instance;// = new Kostka();
         public static Kostka Instance
@@ -25,13 +23,8 @@ namespace hrdina_a_drak
 
         private Kostka()
         {
-            random = new Random();
         }
 
-        public double NextDouble()
-        {
-            return random.NextDouble();
-        }
 
     }
 }
