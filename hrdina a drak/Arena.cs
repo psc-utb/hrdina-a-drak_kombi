@@ -9,9 +9,9 @@ namespace hrdina_a_drak
     public class Arena
     {
 
-        public Postava[] Postavy { get; set; }
+        public List<Postava> Postavy { get; set; }
 
-        public Arena(Postava[] postavy)
+        public Arena(List<Postava> postavy)
         {
             Postavy = postavy;
         }
@@ -20,10 +20,10 @@ namespace hrdina_a_drak
         {
             string prubehBoje = String.Empty;
 
-
+            //Bedna bedna = new Bedna(100, 2);
             while (LzeBojovat())
             {
-                for (int i = 0; i < Postavy.Length; ++i)
+                for (int i = 0; i < Postavy.Count; ++i)
                 {
                     Postava utocnik = Postavy[i];
                     if (utocnik.JeZivy())
@@ -35,7 +35,15 @@ namespace hrdina_a_drak
                             prubehBoje += utocnik.ToString() + Environment.NewLine;
                             prubehBoje += $"{utocnik.Jmeno} zaútočil hodnotou: {utok} - {oponent.Jmeno} zbývá {oponent.Zdravi} bodů zdraví" + Environment.NewLine;
                         }
+                        
+                        /*double utokNaBednu = utocnik.Utok(bedna);
+                        prubehBoje += $"{utocnik.Jmeno} rozbíjí bednu {utokNaBednu} - Bedně zbývá {bedna.Zdravi} bodů zdraví" + Environment.NewLine;*/
                     }
+                    /*else
+                    {
+                        Postavy.RemoveAt(i);
+                        --i;
+                    }*/
                 }
                 prubehBoje += Environment.NewLine;
             }
@@ -44,19 +52,26 @@ namespace hrdina_a_drak
             return prubehBoje;
         }
 
+        public List<Postava> VratZivePostavy()
+        {
+            List<Postava> seznamPostav = new List<Postava>();
+            foreach (var postava in Postavy)
+            {
+                if (postava.JeZivy())
+                {
+                    seznamPostav.Add(postava);
+                }
+            }
+            return seznamPostav;
+        }
+
         public bool LzeBojovat()
         {
-            int pocetZivych = 0;
-            for (int i = 0; i < Postavy.Length; ++i)
+            for (int i = 0; i < Postavy.Count; ++i)
             {
-                if (Postavy[i].JeZivy())
+                if (Postavy[i].JeZivy() && Postavy[i].MaOponenta(Postavy))
                 {
-                    pocetZivych++;
-
-                    if (pocetZivych >= 2)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
 

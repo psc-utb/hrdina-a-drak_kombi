@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace hrdina_a_drak
 {
-    public abstract class Postava : Object
+    public abstract class Postava : Object, IComparable<Postava>, IZasazitelne
     {
 
         public string Jmeno { get; set; }
@@ -25,12 +25,12 @@ namespace hrdina_a_drak
         }
 
 
-        public virtual double Utok(Postava oponent)
+        public virtual double Utok(IZasazitelne oponent)
         {
             return GenerovaniUtoku(PoskozeniMax, oponent);
         }
 
-        protected double GenerovaniUtoku(double poskozMax, Postava oponent)
+        protected double GenerovaniUtoku(double poskozMax, IZasazitelne oponent)
         {
             double hodnotaUtoku = 0;
 
@@ -42,9 +42,9 @@ namespace hrdina_a_drak
             return hodnotaUtoku > 0 ? hodnotaUtoku : 0;
         }
 
-        public virtual Postava VyberOponenta(Postava[] postavy)
+        public virtual Postava VyberOponenta(List<Postava> postavy)
         {
-            for (int i = 0; i < postavy.Length; ++i)
+            for (int i = 0; i < postavy.Count; ++i)
             {
                 if (postavy[i] != this && postavy[i].JeZivy() && TestVyberuSpecifickehoOponenta(postavy[i]))
                 {
@@ -53,6 +53,11 @@ namespace hrdina_a_drak
             }
 
             return null;
+        }
+
+        public bool MaOponenta(List<Postava> postavy)
+        {
+            return VyberOponenta(postavy) != null ? true : false;
         }
 
         public abstract bool TestVyberuSpecifickehoOponenta(Postava oponent);
@@ -78,6 +83,30 @@ namespace hrdina_a_drak
                 return true;
             else
                 return false;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + ": " + $"{Jmeno}, {Zdravi}/{ZdraviMax}, {PoskozeniMax}, {ZbrojMax}, {VypocitejSilu()}";
+        }
+
+        public int CompareTo(Postava other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+            else
+            {
+                double silaTetoPostavy = this.VypocitejSilu();
+                double silaDruhePostavy = other.VypocitejSilu();
+                return silaTetoPostavy.CompareTo(silaDruhePostavy);
+            }
+        }
+
+        public double VypocitejSilu()
+        {
+            return 0.3 * Zdravi + 0.4 * PoskozeniMax + 0.3 * ZbrojMax;
         }
 
     }

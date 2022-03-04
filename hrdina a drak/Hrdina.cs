@@ -16,7 +16,7 @@ namespace hrdina_a_drak
             Mec = mec;
         }
 
-        public override double Utok(Postava oponent)
+        public override double Utok(IZasazitelne oponent)
         {
             if (Mec != null)
             {
@@ -31,7 +31,7 @@ namespace hrdina_a_drak
 
         public override string ToString()
         {
-            return base.ToString() + ": " + $"{Jmeno}, {Zdravi}/{ZdraviMax}, {PoskozeniMax}-{Mec.PoskozeniMax}, {ZbrojMax}";
+            return typeof(Hrdina).ToString() + ": " + $"{Jmeno}, {Zdravi}/{ZdraviMax}, {PoskozeniMax}-{Mec.PoskozeniMax}, {ZbrojMax}, {VypocitejSilu()}";
         }
 
         public override bool TestVyberuSpecifickehoOponenta(Postava oponent)
