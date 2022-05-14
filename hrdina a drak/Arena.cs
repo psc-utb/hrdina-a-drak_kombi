@@ -11,6 +11,8 @@ namespace hrdina_a_drak
 
         public List<Postava> Postavy { get; set; }
 
+        public event Action<string> BojBylDokoncen;
+
         public Arena(List<Postava> postavy)
         {
             Postavy = postavy;
@@ -49,8 +51,13 @@ namespace hrdina_a_drak
                 prubehBoje += Environment.NewLine;
             }
 
-
+            BojBylDokoncen?.Invoke(prubehBoje);
             return prubehBoje;
+        }
+
+        public Task<string> BojAsync()
+        {
+            return Task.Run(Boj);
         }
 
         public List<Postava> VratZivePostavy()
