@@ -77,5 +77,22 @@ namespace hrdina_a_drak
 
             return false;
         }
+
+        public string StatistikyPostav()
+        {
+            string statistiky = String.Empty;
+
+            double prumernaSilaPostav = Postavy.Average(postava => postava.VypocitejSilu());
+            statistiky += $"Průměrná síla postav je: {prumernaSilaPostav}" + Environment.NewLine;
+
+            double minimalniSila = Postavy.Min(postava => postava.VypocitejSilu());
+            Postava nejslabsiPostava = Postavy.Find(postava => postava.VypocitejSilu() == minimalniSila);
+            statistiky += $"Nejslabší postava je: {nejslabsiPostava.ToString()}" + Environment.NewLine;
+
+            List<Postava> draci = Postavy.FindAll(pos => pos is Drak);
+            draci.ForEach(postava => statistiky += $"Drak: {postava.ToString()}" + Environment.NewLine);
+
+            return statistiky;
+        }
     }
 }

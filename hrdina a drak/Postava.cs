@@ -62,6 +62,19 @@ namespace hrdina_a_drak
 
         public abstract bool TestVyberuSpecifickehoOponenta(Postava oponent);
 
+        public virtual Postava VyberOponenta(List<Postava> postavy, Predicate<Postava> podminkaSpecVyberu)
+        {
+            for (int i = 0; i < postavy.Count; ++i)
+            {
+                if (postavy[i] != this && postavy[i].JeZivy() && podminkaSpecVyberu(postavy[i]))
+                {
+                    return postavy[i];
+                }
+            }
+
+            return null;
+        }
+
         public virtual double Obrana()
         {
             double hodnotaObrany = 0;

@@ -38,8 +38,9 @@ namespace hrdina_a_drak
             */
 
             Arena arena = new Arena(postavy);
-
+            string statistiky = arena.StatistikyPostav();
             string prubehBoje = arena.Boj();
+            Console.WriteLine(statistiky + Environment.NewLine + Environment.NewLine);
             Console.WriteLine(prubehBoje + Environment.NewLine);
             try
             {
