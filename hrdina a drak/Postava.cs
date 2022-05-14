@@ -15,6 +15,9 @@ namespace hrdina_a_drak
         public double PoskozeniMax { get; set; }
         public double ZbrojMax { get; set; }
 
+        public event Action<Postava, Postava> VybranNovyOponent;
+        Postava oponent;
+
         public Postava(string jmeno, double zdravi, double zdraviMax, double poskozeniMax, double zbrojMax)
         {
             Jmeno = jmeno;
@@ -22,6 +25,7 @@ namespace hrdina_a_drak
             ZdraviMax = zdraviMax;
             PoskozeniMax = poskozeniMax;
             ZbrojMax = zbrojMax;
+            oponent = null;
         }
 
 
@@ -48,6 +52,12 @@ namespace hrdina_a_drak
             {
                 if (postavy[i] != this && postavy[i].JeZivy() && TestVyberuSpecifickehoOponenta(postavy[i]))
                 {
+                    if (postavy[i] != oponent)
+                    {
+                        oponent = postavy[i];
+                        VybranNovyOponent?.Invoke(this, oponent);
+                    }
+
                     return postavy[i];
                 }
             }

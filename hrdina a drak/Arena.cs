@@ -14,6 +14,7 @@ namespace hrdina_a_drak
         public Arena(List<Postava> postavy)
         {
             Postavy = postavy;
+            Postavy.ForEach(postava => postava.VybranNovyOponent += ReakceNaUdalostVybranNovyOponent);
         }
 
         public string Boj()
@@ -93,6 +94,11 @@ namespace hrdina_a_drak
             draci.ForEach(postava => statistiky += $"Drak: {postava.ToString()}" + Environment.NewLine);
 
             return statistiky;
+        }
+
+        protected void ReakceNaUdalostVybranNovyOponent(Postava utocnik, Postava oponent)
+        {
+            Console.WriteLine($"Postava: {utocnik.Jmeno} si vybrala nového oponenta: {oponent.Jmeno}");
         }
     }
 }

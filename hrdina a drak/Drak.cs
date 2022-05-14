@@ -19,9 +19,9 @@ namespace hrdina_a_drak
             return oponent is not Drak;
         }
 
-        public override Postava VyberOponenta(List<Postava> postavy)
+        /*public override Postava VyberOponenta(List<Postava> postavy)
         {
             return this.VyberOponenta(postavy, postava => postava is not Drak);
-        }
+        }*/
     }
 }
